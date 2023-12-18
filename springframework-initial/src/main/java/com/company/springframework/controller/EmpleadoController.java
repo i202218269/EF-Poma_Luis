@@ -6,11 +6,13 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -75,14 +77,18 @@ public class EmpleadoController {
         JasperReport report = JasperCompileManager.compileReport("src/main/resources/reportes/reporte01.jrxml");
         JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(empleadoService.listarTodosLosEmpleados());
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("parametro1", "Hola mundo");
-        JasperPrint print = JasperFillManager.fillReport(report, parameters, source);
-        byte [] data = JasperExportManager.exportReportToPdf(print);
+        parameters.put("título", "Reporte de Empleados");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, source);
+
+        byte [] data = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.attachment().filename("empleados.pdf").build());
+
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + "empleado1.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .contentLength(data.length)
+                .headers(headers)
                 .body(data);
 
     }
