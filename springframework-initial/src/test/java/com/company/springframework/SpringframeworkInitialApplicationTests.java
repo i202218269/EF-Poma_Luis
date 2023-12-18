@@ -47,7 +47,7 @@ class SpringframeworkInitialApplicationTests {
         // create value for attributes
         empleado.setNombre("Juan Perez");
         empleado.setSalario(new BigDecimal("1000.00"));
-        empleado.setFechaIngreso(LocalDate.now());
+        empleado.setFecha_ingreso(LocalDate.now());
 
         // create value for relationship
         Departamento departamento = new Departamento();
@@ -62,7 +62,7 @@ class SpringframeworkInitialApplicationTests {
         assertThat(empleadoRegistrado.getId()).isPositive();
         assertThat(empleadoRegistrado.getNombre()).isNotEmpty();
         assertThat(empleadoRegistrado.getSalario()).isNotNull();
-        assertThat(empleadoRegistrado.getFechaIngreso()).isNotNull();
+        assertThat(empleadoRegistrado.getFecha_ingreso()).isNotNull();
         assertThat(empleadoRegistrado.getDepartamento()).isNotNull();
         assertThat(empleadoRegistrado.getDepartamento().getId()).isPositive();
         assertThat(empleadoRegistrado.getDepartamento().getDescripcion()).isNotEmpty();
