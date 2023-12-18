@@ -1,6 +1,7 @@
 package com.company.springframework.model;
 
 import jakarta.persistence.*;
+import lombok.Cleanup;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,24 +20,18 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String nombre;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal salario;
 
+    @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fechaIngreso;
+    private LocalDate fecha_ingreso;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Departamento departamento;
 
-    /*
-    public LocalDate getFecha_ingreso() {
-        return this.fechaIngreso;
-    }
-    public Long getDepartamento_id() {
-        return this.departamento.getId();
-    }
-    */
 
 }
