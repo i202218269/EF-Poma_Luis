@@ -62,10 +62,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         if (empleado.getSalario() == null || empleado.getSalario().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("El salario no puede ser negativo.");
         }
-        if (empleado.getFechaIngreso() == null) {
+        if (empleado.getFecha_ingreso() == null) {
             throw new IllegalArgumentException("La fecha de ingreso no puede estar vacía.");
         }
-        if (empleado.getFechaIngreso().isAfter(LocalDate.now())) {
+        if (empleado.getFecha_ingreso().isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("La fecha de ingreso no puede ser futura.");
         }
         if (empleado.getDepartamento() == null || empleado.getDepartamento().getId() == null) {
